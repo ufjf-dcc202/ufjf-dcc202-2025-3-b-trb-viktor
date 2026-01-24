@@ -26,6 +26,15 @@ body {
     box-sizing: border-box;
     background-color: lightgray;
 }
+div button:first-child {
+    margin-top: 20px;
+}
+button {
+    height: 75px;
+    width: 75px;
+    margin-bottom: 20px;
+}
+
 #tabuleiro {
     display:grid;
     grid-template-columns: repeat(10, 55px);
