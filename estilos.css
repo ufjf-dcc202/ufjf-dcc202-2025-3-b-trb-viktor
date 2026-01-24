@@ -1,0 +1,58 @@
+body {
+    background-color: gray;
+}
+#estrutura-pagina {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    align-items: flex-start;
+    height: auto;
+}
+.divisor{
+    width: 2px;
+    height: 554px;
+    background-color: black;
+    margin-right: 20px;
+}
+#area-comandos {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 2px solid black;
+    height: 554px;
+    width: 100px;
+    padding: 10px;
+    margin-right: 20px;
+    box-sizing: border-box;
+    background-color: lightgray;
+}
+#tabuleiro {
+    display:grid;
+    grid-template-columns: repeat(10, 55px);
+    grid-template-rows: repeat(10, 55px);
+    border: 2px solid black;
+    margin-right: 20px;
+    height: 550px;
+    background-color: darkslateblue;
+}
+.quadrado {
+    border: 1px solid white;
+    box-sizing: border-box;
+}
+#coluna-direita{
+    display: flex;
+    flex-direction: column;
+    height: 554px;
+    padding-left: 10px;
+}
+#area-main, #area-p1, #area-p2 {
+    flex: 1;
+    border: 2px solid black;
+    width: 350px;
+    margin-bottom: 15px;
+    padding: 10px;
+    background-color: lightgray;
+}
+#area-p2 {
+    margin-bottom: 0px;
+}
