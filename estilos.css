@@ -1,6 +1,7 @@
 body {
     background-color: gray;
 }
+
 #estrutura-pagina {
     display: flex;
     justify-content: center;
@@ -8,12 +9,14 @@ body {
     align-items: flex-start;
     height: auto;
 }
+
 .divisor{
     width: 2px;
     height: 554px;
     background-color: black;
     margin-right: 20px;
 }
+
 #area-comandos {
     display: flex;
     flex-direction: column;
@@ -26,9 +29,11 @@ body {
     box-sizing: border-box;
     background-color: lightgray;
 }
+
 div button:first-child {
     margin-top: 20px;
 }
+
 button {
     height: 75px;
     width: 75px;
@@ -44,12 +49,14 @@ button {
     height: 550px;
     background-color: darkslateblue;
 }
+
 .quadrado {
     border: 1px solid white;
     box-sizing: border-box;
     position: relative;
 }
 #robo {
+
     display: flex;
     position: absolute;
     top: 5px;
@@ -59,12 +66,14 @@ button {
     height: 45px;
     width: 45px;
 }
+
 #coluna-direita{
     display: flex;
     flex-direction: column;
     height: 554px;
     padding-left: 10px;
 }
+
 #area-main, #area-p1, #area-p2 {
     flex: 1;
     border: 2px solid black;
@@ -73,6 +82,7 @@ button {
     padding: 10px;
     background-color: lightgray;
 }
+
 #area-p2 {
     margin-bottom: 0px;
 }
