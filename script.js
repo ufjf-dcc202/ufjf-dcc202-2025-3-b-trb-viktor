@@ -18,6 +18,15 @@ function criarTabuleiro() {
         tabuleiro.appendChild(novoDiv);
         novoDiv.dataset.x = i % 10;
         novoDiv.dataset.y = Math.floor(i / 10);
+        if(i<50){
+            novoDiv.dataset.z = "0";
+        }
+        else if(i>=50 && i<90){
+            novoDiv.dataset.z = "1";
+        }
+        else{
+            novoDiv.dataset.z = "2";
+        }
     }
 }
 
@@ -37,8 +46,7 @@ function movimentacaoRobo() {
         robox -= 1;
     }
 
-    const localizador = '.quadrado[data-x="'+ robox +'"][data-y="'+ roboy +'"]';
-    const proximoQuadrado = document.querySelector(localizador);
+    const proximoQuadrado = quadradoSeguinte(robox, roboy);
 
     if(proximoQuadrado) {
         proximoQuadrado.appendChild(robo);
@@ -47,6 +55,11 @@ function movimentacaoRobo() {
         robox = robox0;
         roboy = roboy0;
     }
+}
+
+function quadradoSeguinte(x, y) {
+    const localizador = '.quadrado[data-x="'+ robox +'"][data-y="'+ roboy +'"]';
+    return document.querySelector(localizador);
 }
 
 function girarHorario() {
