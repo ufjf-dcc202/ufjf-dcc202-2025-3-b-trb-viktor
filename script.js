@@ -5,8 +5,8 @@ const primeiroQuadrado = tabuleiro.firstChild;
 primeiroQuadrado.appendChild(robo);
 
 let direcaoRobo = 1; //0: cima, 1: direita, 2: baixo, 3: esquerda
-let robox = 0;
-let roboy = 0;
+let roboX = 0;
+let roboY = 0;
 
 const botao = document.querySelectorAll("button"); //7 botões
 botoes();
@@ -31,34 +31,34 @@ function criarTabuleiro() {
 }
 
 function movimentacaoRobo() {
-    const robox0 = robox;
-    const roboy0 = roboy;
+    const roboX0 = roboX;
+    const roboY0 = roboY;
     if(direcaoRobo===0){
-        roboy -= 1;
+        roboY -= 1;
     }
     else if(direcaoRobo===1){
-        robox += 1;
+        roboX += 1;
     }
     else if(direcaoRobo===2){
-        roboy += 1;
+        roboY += 1;
     }
     else{
-        robox -= 1;
+        roboX -= 1;
     }
 
-    const proximoQuadrado = quadradoSeguinte(robox, roboy);
+    const proximoQuadrado = quadradoSeguinte(roboX, roboY);
 
     if(proximoQuadrado) {
         proximoQuadrado.appendChild(robo);
     }
     else{
-        robox = robox0;
-        roboy = roboy0;
+        roboX = roboX0;
+        roboY = roboY0;
     }
 }
 
 function quadradoSeguinte(x, y) {
-    const localizador = '.quadrado[data-x="'+ robox +'"][data-y="'+ roboy +'"]';
+    const localizador = '.quadrado[data-x="'+ x +'"][data-y="'+ y +'"]';
     return document.querySelector(localizador);
 }
 
@@ -74,6 +74,27 @@ function girarAntiHorario() {
     if(direcaoRobo === -1){
         direcaoRobo = 3;
     }
+}
+
+function pular(){
+    let proximoX = roboX;
+    let proximoY = roboY;
+
+    if(direcaoRobo === 0){
+        proximoY -= 1;
+    }
+    else if(direcaoRobo === 1){
+        proximoX += 1;
+    }
+    else if(direcaoRobo === 2){
+        proximoY += 1;
+    }
+    else{
+        proximoX -= 1;
+    }
+
+    const proximoQuadrado = quadradoSeguinte(proximoX, proximoY);
+        
 }
 
 function botoes() {
