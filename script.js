@@ -48,7 +48,7 @@ function movimentacaoRobo() {
 
     const proximoQuadrado = quadradoSeguinte(roboX, roboY);
 
-    if(proximoQuadrado) {
+    if(proximoQuadrado && Number(robo.parentElement.dataset.z) === Number(proximoQuadrado.dataset.z)) {
         proximoQuadrado.appendChild(robo);
     }
     else{
@@ -94,11 +94,21 @@ function pular(){
     }
 
     const proximoQuadrado = quadradoSeguinte(proximoX, proximoY);
-        
+    
+    if(proximoQuadrado){
+        const alturaAtual = Number(robo.parentElement.dataset.z);
+        const alturaSeguinte = Number(proximoQuadrado.dataset.z);
+        if(alturaSeguinte === alturaAtual+1 || alturaSeguinte < alturaAtual){
+            proximoQuadrado.appendChild(robo);
+            roboX = proximoX;
+            roboY = proximoY;
+        }
+    }
 }
 
 function botoes() {
     botao[0].addEventListener("click", movimentacaoRobo);
     botao[1].addEventListener("click", girarAntiHorario);
     botao[2].addEventListener("click", girarHorario);
+    botao[3].addEventListener("click", pular);
 }
