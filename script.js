@@ -34,7 +34,7 @@ function movimentacaoRobo() {
         roboy += 1;
     }
     else{
-        roboy -= 1;
+        robox -= 1;
     }
 
     const localizador = '.quadrado[data-x="'+ robox +'"][data-y="'+ roboy +'"]';
@@ -49,6 +49,22 @@ function movimentacaoRobo() {
     }
 }
 
+function girarHorario() {
+    direcaoRobo += 1;
+    if(direcaoRobo === 4){
+        direcaoRobo = 0;
+    }
+}
+
+function girarAntiHorario() {
+    direcaoRobo -= 1;
+    if(direcaoRobo === -1){
+        direcaoRobo = 3;
+    }
+}
+
 function botoes() {
     botao[0].addEventListener("click", movimentacaoRobo);
+    botao[1].addEventListener("click", girarAntiHorario);
+    botao[2].addEventListener("click", girarHorario);
 }
