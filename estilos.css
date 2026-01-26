@@ -55,6 +55,27 @@ button {
     box-sizing: border-box;
     position: relative;
 }
+
+.quadrado[data-z="0"]{
+    background-color: darkslateblue;
+}
+
+.quadrado[data-z="1"]{
+    background-color: blue;
+}
+
+.quadrado[data-z="2"]{
+    background-color: darkcyan;
+}
+
+.quadrado.apagado {
+    background-color: black;
+}
+
+.quadrado.aceso {
+    background-color: gold;
+}
+
 #robo {
 
     display: flex;

@@ -27,6 +27,9 @@ function criarTabuleiro() {
         else{
             novoDiv.dataset.z = "2";
         }
+        if(i===5) {
+            novoDiv.classList.add("apagado");
+        }
     }
 }
 
@@ -106,9 +109,19 @@ function pular(){
     }
 }
 
+function acender() {
+    if(robo.parentElement.classList.contains("apagado")) {
+        robo.parentElement.classList.replace("apagado", "aceso");
+    }
+    else if(robo.parentElement.classList.contains("aceso")){
+        robo.parentElement.classList.replace("aceso", "apagado");
+    }
+}
+
 function botoes() {
     botao[0].addEventListener("click", movimentacaoRobo);
     botao[1].addEventListener("click", girarAntiHorario);
     botao[2].addEventListener("click", girarHorario);
     botao[3].addEventListener("click", pular);
+    botao[4].addEventListener("click", acender);
 }
