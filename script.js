@@ -3,6 +3,13 @@ const robo = document.querySelector("#robo");
 criarTabuleiro();
 const primeiroQuadrado = tabuleiro.firstChild;
 primeiroQuadrado.appendChild(robo);
+const areas = document.querySelectorAll(".area");
+areas.forEach(area => area.classList.add("nao-selecionada"));
+areas[0].classList.replace("nao-selecionada", "selecionada");
+let areaAtiva = areas[0];
+areas.forEach(area => {
+    area.addEventListener("click", selecaoArea);
+})
 
 let direcaoRobo = 1; //0: cima, 1: direita, 2: baixo, 3: esquerda
 let roboX = 0;
@@ -116,6 +123,19 @@ function acender() {
     else if(robo.parentElement.classList.contains("aceso")){
         robo.parentElement.classList.replace("aceso", "apagado");
     }
+}
+
+function selecaoArea(event) {
+    areas.forEach(area =>{
+        area.classList.remove("selecionada");
+        area.classList.add("nao-selecionada");
+    })
+
+    const areaSelecionada = event.currentTarget;
+    areaSelecionada.classList.remove("nao-selecionada");
+    areaSelecionada.classList.add("selecionada");
+
+    areaAtiva = areaSelecionada;
 }
 
 function botoes() {

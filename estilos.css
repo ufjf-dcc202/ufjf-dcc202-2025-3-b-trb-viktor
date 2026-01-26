@@ -77,7 +77,6 @@ button {
 }
 
 #robo {
-
     display: flex;
     position: absolute;
     top: 5px;
@@ -97,7 +96,6 @@ button {
 
 #area-main, #area-p1, #area-p2 {
     flex: 1;
-    border: 2px solid black;
     width: 350px;
     margin-bottom: 15px;
     padding: 10px;
@@ -106,4 +104,12 @@ button {
 
 #area-p2 {
     margin-bottom: 0px;
+}
+
+.area.selecionada {
+    border: 2px solid red;
+}
+
+.area.nao-selecionada {
+    border: 2px solid black;
 }
