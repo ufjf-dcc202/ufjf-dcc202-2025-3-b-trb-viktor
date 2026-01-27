@@ -138,7 +138,21 @@ function selecaoArea(event) {
     areaAtiva = areaSelecionada;
 }
 
+function iconesNasAreas(event) {
+    const comandoSelecionado = event.currentTarget.dataset.comando;
+
+    const iconeArea = document.createElement("div");
+    iconeArea.classList.add("icone-area");
+    iconeArea.innerText = comandoSelecionado;
+
+    areaAtiva.appendChild(iconeArea);
+}
+
 function botoes() {
+    botao.forEach(botao => {
+        botao.addEventListener("click", iconesNasAreas);
+    })
+
     botao[0].addEventListener("click", movimentacaoRobo);
     botao[1].addEventListener("click", girarAntiHorario);
     botao[2].addEventListener("click", girarHorario);
