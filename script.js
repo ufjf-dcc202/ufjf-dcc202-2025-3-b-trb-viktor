@@ -17,6 +17,7 @@ let roboY = 0;
 
 const botaoComando = document.querySelectorAll(".comando"); //7 botões
 botoes();
+lixeira();
 
 function criarTabuleiro() {
     for(let i=0; i<100; i++){
@@ -158,9 +159,15 @@ function iconesNasAreas(event) {
 }
 
 function lixeira() {
-    const lixeira = querySelectorAll(".lixeira");
-    lixeira.addEventListener("click", ()=>{
-
+    const lixeira = document.querySelectorAll(".lixeira");
+    lixeira.forEach(lixeira => {
+        lixeira.addEventListener("click", (event)=>{
+            event.stopPropagation();
+            const iconesAtualmente = lixeira.parentElement.querySelectorAll(".icone-area"); 
+            for(let i=iconesAtualmente.length-1; i>=0; i--){
+                iconesAtualmente[i].remove();
+            }
+        })  
     })
 }
 
