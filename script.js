@@ -15,7 +15,7 @@ let direcaoRobo = 1; //0: cima, 1: direita, 2: baixo, 3: esquerda
 let roboX = 0;
 let roboY = 0;
 
-const botao = document.querySelectorAll("button"); //7 botões
+const botaoComando = document.querySelectorAll(".comando"); //7 botões
 botoes();
 
 function criarTabuleiro() {
@@ -140,7 +140,7 @@ function selecaoArea(event) {
 
 function iconesNasAreas(event) {
     const icones = areaAtiva.querySelectorAll(".icone-area");
-    if(icones.length >= 24){
+    if(icones.length >= 21){
         return;
     }
 
@@ -157,14 +157,21 @@ function iconesNasAreas(event) {
     areaAtiva.appendChild(iconeArea);
 }
 
+function lixeira() {
+    const lixeira = querySelectorAll(".lixeira");
+    lixeira.addEventListener("click", ()=>{
+
+    })
+}
+
 function botoes() {
-    botao.forEach(botao => {
+    botaoComando.forEach(botao => {
         botao.addEventListener("click", iconesNasAreas);
     })
 
-    botao[0].addEventListener("click", movimentacaoRobo);
-    botao[1].addEventListener("click", girarAntiHorario);
-    botao[2].addEventListener("click", girarHorario);
-    botao[3].addEventListener("click", pular);
-    botao[4].addEventListener("click", acender);
+    botaoComando[0].addEventListener("click", movimentacaoRobo);
+    botaoComando[1].addEventListener("click", girarAntiHorario);
+    botaoComando[2].addEventListener("click", girarHorario);
+    botaoComando[3].addEventListener("click", pular);
+    botaoComando[4].addEventListener("click", acender);
 }
