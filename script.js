@@ -145,6 +145,10 @@ function iconesNasAreas(event) {
     iconeArea.classList.add("icone-area");
     iconeArea.innerText = comandoSelecionado;
 
+    iconeArea.addEventListener("click", ()=> {
+        iconeArea.remove();
+    });
+
     areaAtiva.appendChild(iconeArea);
 }
 
