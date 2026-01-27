@@ -139,6 +139,11 @@ function selecaoArea(event) {
 }
 
 function iconesNasAreas(event) {
+    const icones = areaAtiva.querySelectorAll(".icone-area");
+    if(icones.length >= 24){
+        return;
+    }
+
     const comandoSelecionado = event.currentTarget.dataset.comando;
 
     const iconeArea = document.createElement("div");
