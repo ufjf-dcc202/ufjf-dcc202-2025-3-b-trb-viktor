@@ -4,12 +4,14 @@ criarTabuleiro();
 const primeiroQuadrado = tabuleiro.firstChild;
 primeiroQuadrado.appendChild(robo);
 const areas = document.querySelectorAll(".area");
-areas.forEach(area => area.classList.add("nao-selecionada"));
+for(const area of areas){
+    area.classList.add("nao-selecionada");
+}   
 areas[0].classList.replace("nao-selecionada", "selecionada");
 let areaAtiva = areas[0];
-areas.forEach(area => {
+for(const area of areas){
     area.addEventListener("click", selecaoArea);
-})
+}
 
 let direcaoRobo = 1; //0: cima, 1: direita, 2: baixo, 3: esquerda
 let roboX = 0;
@@ -19,14 +21,21 @@ const botaoComando = document.querySelectorAll(".comando"); //7 botões
 botoes();
 lixeira();
 
+let executando = false;
+
 let lista = [];
 
 const botaoExe = document.querySelectorAll(".executaveis");
 botaoExe[0].addEventListener("click", () => {
+    if(executando){
+        return;
+    }
+
+    executando = true;
+    
     lista = [];
     listaComandos(areas[0], lista);
-    console.log("Comandos: ", lista);
-    console.log("Tamanho: ", lista.length);
+    executar(lista);
 })
 
 
@@ -172,10 +181,15 @@ function listaComandos(areaAtiva, lista, loop = 0) {
     }
 }
 
-/*function executar(areaAtiva) {
-    const listaComandos = areaAtiva.querySelectorAll(".icone-area");
-    listaComandos.forEach(comando =>{
-        switch(comando.dataset.comando){
+function executar(lista) {
+    if(lista.length === 0){
+        executando = false;
+        return;
+    }
+
+    setTimeout(()=> {
+        const comando = lista.shift();
+        switch(comando){
             case "avancar":
                 movimentacaoRobo();
                 break;
@@ -191,22 +205,18 @@ function listaComandos(areaAtiva, lista, loop = 0) {
             case "acender":
                 acender();
                 break;
-            case "p1":
-                executar(document.querySelector("#area-p1"));
-                break;
-            case "p2":
-                executar(document.querySelector("#area-p2"));
+            default:
                 break;
         }
-    })
+        executar(lista);
+    }, 500);
 }
-    */
 
 function selecaoArea(event) {
-    areas.forEach(area =>{
+    for(const area of areas){
         area.classList.remove("selecionada");
         area.classList.add("nao-selecionada");
-    })
+    }
 
     const areaSelecionada = event.currentTarget;
     areaSelecionada.classList.remove("nao-selecionada");
@@ -236,8 +246,8 @@ function iconesNasAreas(event) {
 }
 
 function lixeira() {
-    const lixeira = document.querySelectorAll(".lixeira");
-    lixeira.forEach(lixeira => {
+    const lixeiras = document.querySelectorAll(".lixeira");
+    for(const lixeira of lixeiras){
         lixeira.addEventListener("click", (event)=>{
             event.stopPropagation();
             const iconesAtualmente = lixeira.parentElement.querySelectorAll(".icone-area"); 
@@ -245,17 +255,11 @@ function lixeira() {
                 iconesAtualmente[i].remove();
             }
         })  
-    })
+    }
 }
 
 function botoes() {
-    botaoComando.forEach(botao => {
+    for(const botao of botaoComando) {
         botao.addEventListener("click", iconesNasAreas);
-    })
-
-    botaoComando[0].addEventListener("click", movimentacaoRobo);
-    botaoComando[1].addEventListener("click", girarAntiHorario);
-    botaoComando[2].addEventListener("click", girarHorario);
-    botaoComando[3].addEventListener("click", pular);
-    botaoComando[4].addEventListener("click", acender);
+    }
 }
