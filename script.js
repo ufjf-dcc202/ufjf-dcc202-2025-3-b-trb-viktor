@@ -19,6 +19,17 @@ const botaoComando = document.querySelectorAll(".comando"); //7 botões
 botoes();
 lixeira();
 
+let lista = [];
+
+const botaoExe = document.querySelectorAll(".executaveis");
+botaoExe[0].addEventListener("click", () => {
+    lista = [];
+    listaComandos(areas[0], lista);
+    console.log("Comandos: ", lista);
+    console.log("Tamanho: ", lista.length);
+})
+
+
 function criarTabuleiro() {
     for(let i=0; i<100; i++){
         const novoDiv = document.createElement("div");
@@ -126,6 +137,71 @@ function acender() {
     }
 }
 
+function listaComandos(areaAtiva, lista, loop = 0) {
+    if(loop>20){
+        return;
+    }
+
+    const comandos = areaAtiva.querySelectorAll(".icone-area");
+    for(const comando of comandos){
+        switch(comando.dataset.comando){
+            case "avancar":
+                lista.push(comando.dataset.comando);
+                break;
+            case "girarAntiHorario":
+                lista.push(comando.dataset.comando);
+                break;
+            case "girarHorario":
+                lista.push(comando.dataset.comando);
+                break;
+            case "pular":
+                lista.push(comando.dataset.comando);
+                break;
+            case "acender":
+                lista.push(comando.dataset.comando);
+                break;
+            case "p1":
+                listaComandos(areas[1], lista, loop+1);
+                break;
+            case "p2":
+                listaComandos(areas[2], lista, loop+1);
+                break;
+            default:
+                break;
+        }
+    }
+}
+
+/*function executar(areaAtiva) {
+    const listaComandos = areaAtiva.querySelectorAll(".icone-area");
+    listaComandos.forEach(comando =>{
+        switch(comando.dataset.comando){
+            case "avancar":
+                movimentacaoRobo();
+                break;
+            case "girarAntiHorario":
+                girarAntiHorario();
+                break;
+            case "girarHorario":
+                girarHorario();
+                break;
+            case "pular":
+                pular();
+                break;
+            case "acender":
+                acender();
+                break;
+            case "p1":
+                executar(document.querySelector("#area-p1"));
+                break;
+            case "p2":
+                executar(document.querySelector("#area-p2"));
+                break;
+        }
+    })
+}
+    */
+
 function selecaoArea(event) {
     areas.forEach(area =>{
         area.classList.remove("selecionada");
@@ -149,6 +225,7 @@ function iconesNasAreas(event) {
 
     const iconeArea = document.createElement("div");
     iconeArea.classList.add("icone-area");
+    iconeArea.dataset.comando = comandoSelecionado;
     iconeArea.innerText = comandoSelecionado;
 
     iconeArea.addEventListener("click", ()=> {
