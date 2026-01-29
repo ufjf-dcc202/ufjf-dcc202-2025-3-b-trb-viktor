@@ -26,18 +26,7 @@ let executando = false;
 let lista = [];
 
 const botaoExe = document.querySelectorAll(".executaveis");
-botaoExe[0].addEventListener("click", () => {
-    if(executando){
-        return;
-    }
-
-    executando = true;
-    
-    lista = [];
-    listaComandos(areas[0], lista);
-    executar(lista);
-})
-
+botoesExecutaveis();
 
 function criarTabuleiro() {
     for(let i=0; i<100; i++){
@@ -212,6 +201,20 @@ function executar(lista) {
     }, 500);
 }
 
+function reset() {
+    executando = false;
+    roboX = 0;
+    roboY = 0;
+    direcaoRobo = 1;
+    primeiroQuadrado.appendChild(robo);
+    const quadrado = tabuleiro.querySelectorAll(".quadrado");
+    for(const atual of quadrado) {
+        if(atual.classList.contains("aceso")){
+            atual.classList.replace("aceso", "apagado");
+        }
+    }
+}
+
 function selecaoArea(event) {
     for(const area of areas){
         area.classList.remove("selecionada");
@@ -262,4 +265,17 @@ function botoes() {
     for(const botao of botaoComando) {
         botao.addEventListener("click", iconesNasAreas);
     }
+}
+
+function botoesExecutaveis() {
+    botaoExe[0].addEventListener("click", () => {
+        if(executando){
+            return;
+        }
+        executando = true;
+        lista = [];
+        listaComandos(areas[0], lista);
+        executar(lista);
+    })
+    botaoExe[1].addEventListener("click", reset);
 }
