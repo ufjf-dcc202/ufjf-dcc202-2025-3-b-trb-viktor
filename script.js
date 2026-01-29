@@ -224,6 +224,7 @@ function passo_a_passo() {
 }
 
 function reset() {
+    listaIniciada = false;
     executando = false;
     lista = [];
     roboX = 0;
@@ -316,6 +317,7 @@ function botoesExecutaveis() {
             return;
         }
         executando = true;
+        listaIniciada = true;
         lista = [];
         listaComandos(areas[0], lista);
         executar(lista);
