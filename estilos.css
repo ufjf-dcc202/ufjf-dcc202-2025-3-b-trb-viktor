@@ -199,6 +199,6 @@ b {
     margin-top: 10px;
 }
 
-#proxima-fase {
+#proxima-fase.invisivel {
     display:none;
 }
