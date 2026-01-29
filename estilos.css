@@ -90,9 +90,10 @@ button.comando:first-child {
 #coluna-direita{
     display: flex;
     flex-direction: column;
-    height: auto;
-    padding-left: 10px;
-    max-height: 554px;
+    height: 554px;
+    padding-right: 20px;
+    border-right: 2px solid black;
+    box-sizing: border-box;
 }
 
 #area-main, #area-p1, #area-p2 {
@@ -170,4 +171,24 @@ b {
 .icone-area:hover {
     background-color: green;
     transform: scale(1.2);
+}
+
+#area-nivel {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    min-height: 190px;
+    margin-left: 20px;
+    width: 60px;
+    flex-direction: column;
+    background-color: lightgray;
+}
+
+.executaveis {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
 }
