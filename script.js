@@ -412,6 +412,9 @@ function botoesExecutaveis() {
             if(faseAtual === 1) {
                 alert("Nível 2\nPara acessar áres de diferentes alturas (sinalizadas por diferentes cores), você irá usar comando 'Pular'(4º comando da lista)!")
             }
+            else if(faseAtual === 2) {
+                alert("Nível 3\nEsse nível exige uma quantidade de comandos que não poderão ser usados apenas na main.\nPara isso, use os procedimentos P1 e P2 para passar uma lista de comandos para main, ocupando apenas um espaço!");
+            }
             limparAreaComandos();
             criarTabuleiro();
             reset();
