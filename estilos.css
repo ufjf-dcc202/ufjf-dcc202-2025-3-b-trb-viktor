@@ -202,3 +202,10 @@ b {
 #proxima-fase.invisivel {
     display:none;
 }
+
+.comando-atual {
+    background-color: lightblue;
+    transform: scale(1.1);
+    transition: all 0.2s;
+    
+}

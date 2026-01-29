@@ -28,6 +28,12 @@ let lista = [];
 const botaoExe = document.querySelectorAll(".executaveis");
 botoesExecutaveis();
 
+let iconeAnterior = null;
+
+
+
+
+
 function criarTabuleiro() {
     for(let i=0; i<100; i++){
         const novoDiv = document.createElement("div");
@@ -143,30 +149,12 @@ function listaComandos(areaAtiva, lista, loop = 0) {
 
     const comandos = areaAtiva.querySelectorAll(".icone-area");
     for(const comando of comandos){
-        switch(comando.dataset.comando){
-            case "avancar":
-                lista.push(comando.dataset.comando);
-                break;
-            case "girarAntiHorario":
-                lista.push(comando.dataset.comando);
-                break;
-            case "girarHorario":
-                lista.push(comando.dataset.comando);
-                break;
-            case "pular":
-                lista.push(comando.dataset.comando);
-                break;
-            case "acender":
-                lista.push(comando.dataset.comando);
-                break;
-            case "p1":
-                listaComandos(areas[1], lista, loop+1);
-                break;
-            case "p2":
-                listaComandos(areas[2], lista, loop+1);
-                break;
-            default:
-                break;
+        lista.push(comando);
+        if(comando.dataset.comando === "p1"){
+            listaComandos(areas[1], lista, loop+1);
+        }
+        else if(comando.dataset.comando === "p2"){
+            listaComandos(areas[2], lista, loop+1);
         }
     }
 }
@@ -184,7 +172,20 @@ function executar(lista) {
 }
 
 function executarAcoes(lista) {
-    const comando = lista.shift();
+    if(iconeAnterior) {
+        iconeAnterior.classList.remove("comando-atual");
+    }
+
+    const iconeAtual = lista.shift();
+    if(!iconeAtual) {
+        return;
+    }
+    iconeAtual.classList.add("comando-atual");
+
+    iconeAnterior = iconeAtual;
+
+    const comando = iconeAtual.dataset.comando;
+
     switch(comando){
         case "avancar":
             movimentacaoRobo();
@@ -236,6 +237,11 @@ function reset() {
     const proximaFase = document.querySelector("#proxima-fase");
     proximaFase.classList.add("invisivel");
     proximaFase.classList.remove("visivel");
+
+    if(iconeAnterior){
+        iconeAnterior.classList.remove("comando-atual");
+        iconeAnterior = null;
+    }
 }
 
 function vitoria() {
