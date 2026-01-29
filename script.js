@@ -137,6 +137,7 @@ function girarHorario() {
     if(direcaoRobo === 4){
         direcaoRobo = 0;
     }
+    robo.dataset.direcao = direcaoRobo;
 }
 
 function girarAntiHorario() {
@@ -144,6 +145,7 @@ function girarAntiHorario() {
     if(direcaoRobo === -1){
         direcaoRobo = 3;
     }
+    robo.dataset.direcao = direcaoRobo;
 }
 
 function pular(){
@@ -188,6 +190,8 @@ function acender() {
 
 function listaComandos(areaAtiva, lista, loop = 0) {
     if(loop>20){
+        alert("Você fez um loop que se repetiu mais de 20 vezes, o nível será reiniciado!");
+        reset();
         return;
     }
 
@@ -274,6 +278,7 @@ function reset() {
     roboX = 0;
     roboY = 0;
     direcaoRobo = 1;
+    robo.dataset.direcao = direcaoRobo;
     tabuleiro.firstChild.appendChild(robo);
     const quadrado = tabuleiro.querySelectorAll(".quadrado");
     for(const atual of quadrado) {
@@ -331,6 +336,10 @@ function limparAreaComandos() {
 }
 
 function selecaoArea(event) {
+    if(executando) {
+        return;
+    }
+
     for(const area of areas){
         area.classList.remove("selecionada");
         area.classList.add("nao-selecionada");
@@ -357,6 +366,9 @@ function iconesNasAreas(event) {
     iconeArea.innerText = comandoSelecionado;
 
     iconeArea.addEventListener("click", ()=> {
+        if(executando) {
+        return;
+        }
         iconeArea.remove();
     });
 
@@ -367,6 +379,9 @@ function lixeira() {
     const lixeiras = document.querySelectorAll(".lixeira");
     for(const lixeira of lixeiras){
         lixeira.addEventListener("click", (event)=>{
+            if(executando) {
+                return;
+            }
             event.stopPropagation();
             const iconesAtualmente = lixeira.parentElement.querySelectorAll(".icone-area"); 
             for(let i=iconesAtualmente.length-1; i>=0; i--){
