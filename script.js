@@ -277,5 +277,5 @@ function botoesExecutaveis() {
         listaComandos(areas[0], lista);
         executar(lista);
     })
-    botaoExe[1].addEventListener("click", reset);
+    botaoExe[2].addEventListener("click", reset);
 }
