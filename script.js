@@ -133,6 +133,7 @@ function acender() {
     else if(robo.parentElement.classList.contains("aceso")){
         robo.parentElement.classList.replace("aceso", "apagado");
     }
+    vitoria();
 }
 
 function listaComandos(areaAtiva, lista, loop = 0) {
@@ -173,6 +174,7 @@ function listaComandos(areaAtiva, lista, loop = 0) {
 function executar(lista) {
     if(lista.length === 0){
         executando = false;
+        vitoria();
         return;
     }
 
@@ -216,6 +218,7 @@ function passo_a_passo() {
 
     if(lista.length > 0){
         executarAcoes(lista);
+        vitoria();
     }
 }
 
@@ -231,6 +234,21 @@ function reset() {
         if(atual.classList.contains("aceso")){
             atual.classList.replace("aceso", "apagado");
         }
+    }
+    const proximaFase = document.querySelector("#proxima-fase");
+    proximaFase.classList.add("invisivel");
+    proximaFase.classList.remove("visivel");
+}
+
+function vitoria() {
+    const apagados = tabuleiro.querySelectorAll(".apagado");
+    const proximaFase = document.querySelector("#proxima-fase");
+    if(apagados.length === 0) {
+        proximaFase.classList.replace("invisivel", "visivel");
+    }
+    else{
+        proximaFase.classList.add("invisivel");
+        proximaFase.classList.remove("visivel");
     }
 }
 
