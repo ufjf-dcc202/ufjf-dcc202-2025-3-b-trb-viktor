@@ -18,12 +18,12 @@ const niveis = [{
 },
 {
     //Nível 3
-    casasApagadas: [],
+    casasApagadas: [81, 63, 45, 27, 19, 3],
     z0: [],
-    z1: [],
-    z2: [],
-    z3: [],
-    z4: []
+    z1: [81, 19],
+    z2: [63, 3],
+    z3: [45],
+    z4: [27]
 }
 ];
 
@@ -315,6 +315,21 @@ function vitoria() {
     }
 }
 
+function limparAreaComandos() {
+    const icones = document.querySelectorAll(".icone-area");
+    for(const icone of icones) {
+        icone.remove();
+    }
+    for(const area of areas) {
+        area.classList.remove("selecionada");
+        area.classList.add("nao-selecionada");
+    }
+    areas[0].classList.replace("nao-selecionada", "selecionada");
+    lista = [];
+    listaIniciada = false;
+    iconeAnterior = null;
+}
+
 function selecaoArea(event) {
     for(const area of areas){
         area.classList.remove("selecionada");
@@ -382,6 +397,7 @@ function botoesExecutaveis() {
             if(faseAtual === 1) {
                 alert("Nível 2\nPara acessar áres de diferentes alturas (sinalizadas por diferentes cores), você irá usar comando 'Pular'(4º comando da lista)!")
             }
+            limparAreaComandos();
             criarTabuleiro();
             reset();
         }
