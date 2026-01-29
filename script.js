@@ -176,33 +176,52 @@ function executar(lista) {
         return;
     }
 
-    setTimeout(()=> {
-        const comando = lista.shift();
-        switch(comando){
-            case "avancar":
-                movimentacaoRobo();
-                break;
-            case "girarAntiHorario":
-                girarAntiHorario();
-                break;
-            case "girarHorario":
-                girarHorario();
-                break;
-            case "pular":
-                pular();
-                break;
-            case "acender":
-                acender();
-                break;
-            default:
-                break;
-        }
+    setTimeout(() => {
+        executarAcoes(lista);
         executar(lista);
     }, 500);
 }
 
+function executarAcoes(lista) {
+    const comando = lista.shift();
+    switch(comando){
+        case "avancar":
+            movimentacaoRobo();
+            break;
+        case "girarAntiHorario":
+            girarAntiHorario();
+            break;
+        case "girarHorario":
+            girarHorario();
+            break;
+        case "pular":
+            pular();
+            break;
+        case "acender":
+            acender();
+            break;
+        default:
+            break;
+    }
+}
+
+function passo_a_passo() {
+    if(executando) {
+        return;
+    }
+
+    if(lista.length === 0) {
+        listaComandos(areas[0], lista);
+    }
+
+    if(lista.length > 0){
+        executarAcoes(lista);
+    }
+}
+
 function reset() {
     executando = false;
+    lista = [];
     roboX = 0;
     roboY = 0;
     direcaoRobo = 1;
@@ -277,5 +296,6 @@ function botoesExecutaveis() {
         listaComandos(areas[0], lista);
         executar(lista);
     })
+    botaoExe[1].addEventListener("click", passo_a_passo);
     botaoExe[2].addEventListener("click", reset);
 }
