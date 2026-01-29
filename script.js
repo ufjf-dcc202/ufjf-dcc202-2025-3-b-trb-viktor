@@ -31,6 +31,9 @@ const robo = document.querySelector("#robo");
 criarTabuleiro();
 const primeiroQuadrado = tabuleiro.firstChild;
 primeiroQuadrado.appendChild(robo);
+
+alert("Bem vindo ao LightBot!\nNesse jogo, seu objetivo é acender todas as casas apagadas através de uma sequência de comandos que você irá escolher!\nClique nos botões para adicioná-los às áreas de comando e depois clique em executar!");
+
 const areas = document.querySelectorAll(".area");
 for(const area of areas){
     area.classList.add("nao-selecionada");
@@ -58,8 +61,8 @@ const botaoExe = document.querySelectorAll(".executaveis");
 botoesExecutaveis();
 
 let iconeAnterior = null;
-
-
+let velocidade = 500;
+let tempoExecucao = null;
 
 
 
@@ -206,10 +209,10 @@ function executar(lista) {
         return;
     }
 
-    setTimeout(() => {
+    tempoExecucao = setTimeout(() => {
         executarAcoes(lista);
         executar(lista);
-    }, 500);
+    }, velocidade);
 }
 
 function executarAcoes(lista) {
@@ -264,6 +267,7 @@ function passo_a_passo() {
 }
 
 function reset() {
+    clearTimeout(tempoExecucao);
     listaIniciada = false;
     executando = false;
     lista = [];
@@ -285,6 +289,18 @@ function reset() {
         iconeAnterior.classList.remove("comando-atual");
         iconeAnterior = null;
     }
+}
+
+function adaptarVelocidade(velocidadeEscolhida) {
+    if(executando){
+            return;
+        }
+        velocidade = velocidadeEscolhida;
+        executando = true;
+        listaIniciada = true;
+        lista = [];
+        listaComandos(areas[0], lista);
+        executar(lista);
 }
 
 function vitoria() {
@@ -353,20 +369,19 @@ function botoes() {
 
 function botoesExecutaveis() {
     botaoExe[0].addEventListener("click", () => {
-        if(executando){
-            return;
-        }
-        executando = true;
-        listaIniciada = true;
-        lista = [];
-        listaComandos(areas[0], lista);
-        executar(lista);
+        adaptarVelocidade(500);
     })
-    botaoExe[1].addEventListener("click", passo_a_passo);
-    botaoExe[2].addEventListener("click", reset);
-    botaoExe[3].addEventListener("click", () => {
+    botaoExe[1].addEventListener("click", () => {
+        adaptarVelocidade(250);
+    })
+    botaoExe[2].addEventListener("click", passo_a_passo);
+    botaoExe[3].addEventListener("click", reset);
+    botaoExe[4].addEventListener("click", () => {
         if(faseAtual < niveis.length - 1) {
             faseAtual++;
+            if(faseAtual === 1) {
+                alert("Nível 2\nPara acessar áres de diferentes alturas (sinalizadas por diferentes cores), você irá usar comando 'Pular'(4º comando da lista)!")
+            }
             criarTabuleiro();
             reset();
         }
