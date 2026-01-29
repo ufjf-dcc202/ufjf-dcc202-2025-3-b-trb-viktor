@@ -1,4 +1,32 @@
 const tabuleiro = document.querySelector("#tabuleiro");
+let faseAtual = 0;
+const niveis = [{
+    //Nível 1
+    casasApagadas: [2, 7, 20, 29, 70, 79, 92, 97],
+    z0: [],
+    z1: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 20, 30, 40, 50, 60, 70, 80, 90, 19, 29, 39, 49, 59, 69, 79, 89, 99, 91, 92, 93, 94, 95, 96, 97, 98],
+    z2: [], z3: [], z4: []
+},
+{
+    //Nível 2
+    casasApagadas: [41, 32, 45, 68],
+    z0: [],
+    z1: [4, 5, 14, 15],
+    z2: [23, 24, 25, 26, 41, 51, 48, 58],
+    z3: [31, 33, 34, 35, 36, 38, 68],
+    z4: [22, 32, 42, 43, 44, 45, 46, 47, 37, 27]
+},
+{
+    //Nível 3
+    casasApagadas: [],
+    z0: [],
+    z1: [],
+    z2: [],
+    z3: [],
+    z4: []
+}
+];
+
 const robo = document.querySelector("#robo");
 criarTabuleiro();
 const primeiroQuadrado = tabuleiro.firstChild;
@@ -36,24 +64,36 @@ let iconeAnterior = null;
 
 
 function criarTabuleiro() {
+    tabuleiro.innerHTML = "";
+    const fase = niveis[faseAtual];
     for(let i=0; i<100; i++){
         const novoDiv = document.createElement("div");
         novoDiv.classList.add("quadrado");
-        tabuleiro.appendChild(novoDiv);
+        
         novoDiv.dataset.x = i % 10;
         novoDiv.dataset.y = Math.floor(i / 10);
-        if(i<50){
-            novoDiv.dataset.z = "0";
+        
+        if(fase.z4 && fase.z4.includes(i)) {
+            novoDiv.dataset.z = "4";
         }
-        else if(i>=50 && i<90){
-            novoDiv.dataset.z = "1";
+        else if(fase.z3 && fase.z3.includes(i)) {
+            novoDiv.dataset.z = "3";
         }
-        else{
+        else if(fase.z2 && fase.z2.includes(i)) {
             novoDiv.dataset.z = "2";
         }
-        if(i===5) {
+        else if(fase.z1.includes(i)) {
+            novoDiv.dataset.z = "1";
+        }
+        else {
+            novoDiv.dataset.z = "0";
+        }
+
+        if(fase.casasApagadas.includes(i)) {
             novoDiv.classList.add("apagado");
         }
+
+        tabuleiro.appendChild(novoDiv);
     }
 }
 
@@ -230,7 +270,7 @@ function reset() {
     roboX = 0;
     roboY = 0;
     direcaoRobo = 1;
-    primeiroQuadrado.appendChild(robo);
+    tabuleiro.firstChild.appendChild(robo);
     const quadrado = tabuleiro.querySelectorAll(".quadrado");
     for(const atual of quadrado) {
         if(atual.classList.contains("aceso")){
@@ -324,4 +364,14 @@ function botoesExecutaveis() {
     })
     botaoExe[1].addEventListener("click", passo_a_passo);
     botaoExe[2].addEventListener("click", reset);
+    botaoExe[3].addEventListener("click", () => {
+        if(faseAtual < niveis.length - 1) {
+            faseAtual++;
+            criarTabuleiro();
+            reset();
+        }
+        else {
+            alert("Parabéns, você concluiu o jogo!!!");
+        }
+    })
 }
