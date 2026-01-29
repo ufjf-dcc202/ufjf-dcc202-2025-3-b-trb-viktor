@@ -22,6 +22,7 @@ botoes();
 lixeira();
 
 let executando = false;
+let listaIniciada = false;
 
 let lista = [];
 
@@ -212,8 +213,9 @@ function passo_a_passo() {
         return;
     }
 
-    if(lista.length === 0) {
+    if(!listaIniciada && lista.length === 0) {
         listaComandos(areas[0], lista);
+        listaIniciada = true;
     }
 
     if(lista.length > 0){
