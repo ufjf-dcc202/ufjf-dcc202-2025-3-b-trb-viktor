@@ -56,16 +56,24 @@ button.comando:first-child {
     position: relative;
 }
 
-.quadrado[data-z="0"]{
+.quadrado[data-z="0"] {
     background-color: darkslateblue;
 }
 
-.quadrado[data-z="1"]{
+.quadrado[data-z="1"] {
     background-color: blue;
 }
 
-.quadrado[data-z="2"]{
-    background-color: darkcyan;
+.quadrado[data-z="2"] {
+    background-color: red;
+}
+
+.quadrado[data-z="3"] {
+    background-color: green;
+}
+
+.quadrado[data-z="4"] {
+    background-color: rgb(238, 10, 151);
 }
 
 .quadrado.apagado {
@@ -85,6 +93,22 @@ button.comando:first-child {
     align-items: center;
     height: 45px;
     width: 45px;
+}
+
+#robo[data-direcao="0"] {
+    transform: rotate(0deg);
+}
+
+#robo[data-direcao="1"] {
+    transform: rotate(90deg);
+}
+
+#robo[data-direcao="2"] {
+    transform: rotate(180deg);
+}
+
+#robo[data-direcao="3"] {
+    transform: rotate(270deg);
 }
 
 #coluna-direita{
@@ -207,5 +231,4 @@ b {
     background-color: lightblue;
     transform: scale(1.1);
     transition: all 0.2s;
-    
 }
