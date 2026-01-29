@@ -174,7 +174,6 @@ function listaComandos(areaAtiva, lista, loop = 0) {
 function executar(lista) {
     if(lista.length === 0){
         executando = false;
-        vitoria();
         return;
     }
 
@@ -218,7 +217,6 @@ function passo_a_passo() {
 
     if(lista.length > 0){
         executarAcoes(lista);
-        vitoria();
     }
 }
 
