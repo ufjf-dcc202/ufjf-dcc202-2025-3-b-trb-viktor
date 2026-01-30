@@ -1,12 +1,36 @@
 const tabuleiro = document.querySelector("#tabuleiro");
+const robo = document.querySelector("#robo");
+const areas = document.querySelectorAll(".area");
+const botaoComando = document.querySelectorAll(".comando"); //7 botões
+const botaoExe = document.querySelectorAll(".executaveis");
+
+let areaAtiva = areas[0];
 let faseAtual = 0;
+let direcaoRobo = 1; //0: cima, 1: direita, 2: baixo, 3: esquerda
+let roboX = 0;
+let roboY = 0;
+let executando = false;
+let listaIniciada = false;
+let lista = [];
+let iconeAnterior = null;
+let velocidade = 500;
+let tempoExecucao = null;
+
+
+for(const area of areas){
+    area.classList.add("nao-selecionada");
+}   
+for(const area of areas){
+    area.addEventListener("click", selecaoArea);
+}
+
 const niveis = [{
     //Nível 1
     casasApagadas: [2, 7, 20, 29, 70, 79, 92, 97],
     z0: [],
     z1: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 20, 30, 40, 50, 60, 70, 80, 90, 19, 29, 39, 49, 59, 69, 79, 89, 99, 91, 92, 93, 94, 95, 96, 97, 98],
     z2: [], z3: [], z4: []
-},
+},    
 {
     //Nível 2
     casasApagadas: [41, 32, 45, 68],
@@ -15,7 +39,7 @@ const niveis = [{
     z2: [23, 24, 25, 26, 41, 51, 48, 58],
     z3: [31, 33, 34, 35, 36, 38, 68],
     z4: [22, 32, 42, 43, 44, 45, 46, 47, 37, 27]
-},
+},    
 {
     //Nível 3
     casasApagadas: [31, 38, 81, 88, 64, 65, 54, 55],
@@ -24,47 +48,22 @@ const niveis = [{
     z2: [22, 27, 72, 77],
     z3: [20, 30, 40, 50, 60, 70, 80, 90, 29, 39, 49, 59, 69, 79, 89, 99, 91, 92, 93, 94, 95, 96, 97, 98, 32, 37, 82, 87, 84, 85, 74, 75],
     z4: [31, 38, 81, 88, 54, 55, 64, 65]
+}];
+
+
+
+
+function inicio() {
+    criarTabuleiro();
+    const primeiroQuadrado = tabuleiro.firstChild;
+    primeiroQuadrado.appendChild(robo);
+    botoes();
+    lixeira();
+    botoesExecutaveis();
+    areas[0].classList.replace("nao-selecionada", "selecionada");
+    alert("Bem vindo ao LightBot!\nNesse jogo, seu objetivo é acender todas as casas apagadas através de uma sequência de comandos que você irá escolher!\nClique nos botões para adicioná-los às áreas de comando e depois clique em executar!");
+    alert("Alturas:\n0: Roxo\n1: Azul escuro\n2: Azul 'normal'\n3: Verde claro\n4: Verde escuro")
 }
-];
-
-const robo = document.querySelector("#robo");
-criarTabuleiro();
-const primeiroQuadrado = tabuleiro.firstChild;
-primeiroQuadrado.appendChild(robo);
-
-alert("Bem vindo ao LightBot!\nNesse jogo, seu objetivo é acender todas as casas apagadas através de uma sequência de comandos que você irá escolher!\nClique nos botões para adicioná-los às áreas de comando e depois clique em executar!");
-
-const areas = document.querySelectorAll(".area");
-for(const area of areas){
-    area.classList.add("nao-selecionada");
-}   
-areas[0].classList.replace("nao-selecionada", "selecionada");
-let areaAtiva = areas[0];
-for(const area of areas){
-    area.addEventListener("click", selecaoArea);
-}
-
-let direcaoRobo = 1; //0: cima, 1: direita, 2: baixo, 3: esquerda
-let roboX = 0;
-let roboY = 0;
-
-const botaoComando = document.querySelectorAll(".comando"); //7 botões
-botoes();
-lixeira();
-
-let executando = false;
-let listaIniciada = false;
-
-let lista = [];
-
-const botaoExe = document.querySelectorAll(".executaveis");
-botoesExecutaveis();
-
-let iconeAnterior = null;
-let velocidade = 500;
-let tempoExecucao = null;
-
-
 
 function criarTabuleiro() {
     tabuleiro.innerHTML = "";
@@ -210,8 +209,16 @@ function listaComandos(areaAtiva, lista, loop = 0) {
 function executar(lista) {
     if(lista.length === 0){
         executando = false;
-        return;
-    }
+
+    setTimeout(() => {
+        const faltando = tabuleiro.querySelectorAll(".apagado");
+        if(faltando.length > 0) {
+            alert("Nem todas as lâmpadas foram acesas, tente novamente!");
+            reset();
+        }
+    }, 600)
+    return;
+}
 
     tempoExecucao = setTimeout(() => {
         executarAcoes(lista);
@@ -363,7 +370,8 @@ function iconesNasAreas(event) {
     const iconeArea = document.createElement("div");
     iconeArea.classList.add("icone-area");
     iconeArea.dataset.comando = comandoSelecionado;
-    iconeArea.innerText = comandoSelecionado;
+
+    iconeArea.innerHTML = `<img src="./assets/${comandoSelecionado}.png" alt="${comandoSelecionado}">`;
 
     iconeArea.addEventListener("click", ()=> {
         if(executando) {
@@ -424,3 +432,6 @@ function botoesExecutaveis() {
         }
     })
 }
+
+
+inicio();
