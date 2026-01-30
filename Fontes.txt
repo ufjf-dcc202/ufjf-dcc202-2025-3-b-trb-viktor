@@ -1,0 +1,3 @@
+https://kenney.nl/assets/robot-pack: Robô
+https://kenney.nl/assets/board-game-icons: GirarHorario, GirarAntiHorario, Pular, Avançar
+P1, P2, acender e lâmpadas(acesa e apagada): foram feitas por mim
