@@ -35,9 +35,29 @@ button.comando:first-child {
 }
 
 .comando {
-    height: 75px;
-    width: 75px;
+    height: 50px;
+    width: 50px;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background-color: black;
+    border: 2px solid white;
     margin-bottom: 20px;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.comando img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.comando[data-comando="p1"] img, .comando[data-comando="p2"] img {
+    transform: translate(2px, 2px) scale(1.8);
 }
 
 #tabuleiro {
@@ -77,14 +97,24 @@ button.comando:first-child {
 }
 
 .quadrado.apagado {
-    background-color: black;
+    background-image: url('assets/apagada.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center bottom 5px;
 }
 
 .quadrado.aceso {
-    background-color: gold;
+    background-image: url('assets/acesa.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center bottom 5px;
 }
 
 #robo {
+    background-image: url('assets/robo.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
     display: flex;
     position: absolute;
     top: 5px;
@@ -96,19 +126,19 @@ button.comando:first-child {
 }
 
 #robo[data-direcao="0"] {
-    transform: rotate(0deg);
+    transform: rotate(-90deg);
 }
 
 #robo[data-direcao="1"] {
-    transform: rotate(90deg);
+    transform: rotate(0deg);
 }
 
 #robo[data-direcao="2"] {
-    transform: rotate(180deg);
+    transform: rotate(90deg);
 }
 
 #robo[data-direcao="3"] {
-    transform: rotate(270deg);
+    transform: rotate(180deg);
 }
 
 #coluna-direita{
@@ -221,6 +251,7 @@ b {
     align-items: center;
     justify-content: center;
     margin-top: 10px;
+    font-size: 3.1mm;
 }
 
 #proxima-fase.invisivel {
